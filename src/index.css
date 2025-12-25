@@ -1,0 +1,204 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Sundarban Child Campus Design System
+   Inspired by Art of Living - calm, earthy, humanitarian
+   All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Earthy, peaceful color palette */
+    --background: 40 33% 98%;
+    --foreground: 25 20% 20%;
+
+    --card: 40 30% 96%;
+    --card-foreground: 25 20% 20%;
+
+    --popover: 40 33% 98%;
+    --popover-foreground: 25 20% 20%;
+
+    /* Forest green - primary */
+    --primary: 145 35% 32%;
+    --primary-foreground: 40 33% 98%;
+
+    /* Warm beige - secondary */
+    --secondary: 35 40% 92%;
+    --secondary-foreground: 25 20% 20%;
+
+    /* Muted sage */
+    --muted: 40 20% 94%;
+    --muted-foreground: 25 10% 45%;
+
+    /* Terracotta accent */
+    --accent: 18 60% 55%;
+    --accent-foreground: 40 33% 98%;
+
+    --destructive: 0 65% 50%;
+    --destructive-foreground: 40 33% 98%;
+
+    --border: 35 25% 88%;
+    --input: 35 25% 88%;
+    --ring: 145 35% 32%;
+
+    --radius: 0.75rem;
+
+    /* Custom colors for the NGO theme */
+    --earth: 25 35% 35%;
+    --earth-foreground: 40 33% 98%;
+    
+    --cream: 40 40% 95%;
+    --cream-foreground: 25 20% 20%;
+    
+    --sage: 145 20% 85%;
+    --sage-foreground: 145 35% 25%;
+    
+    --warm: 35 50% 50%;
+    --warm-foreground: 40 33% 98%;
+
+    --sidebar-background: 40 30% 96%;
+    --sidebar-foreground: 25 20% 20%;
+    --sidebar-primary: 145 35% 32%;
+    --sidebar-primary-foreground: 40 33% 98%;
+    --sidebar-accent: 35 40% 92%;
+    --sidebar-accent-foreground: 25 20% 20%;
+    --sidebar-border: 35 25% 88%;
+    --sidebar-ring: 145 35% 32%;
+  }
+
+  .dark {
+    --background: 25 20% 10%;
+    --foreground: 40 30% 95%;
+
+    --card: 25 18% 14%;
+    --card-foreground: 40 30% 95%;
+
+    --popover: 25 20% 10%;
+    --popover-foreground: 40 30% 95%;
+
+    --primary: 145 40% 45%;
+    --primary-foreground: 25 20% 10%;
+
+    --secondary: 25 15% 20%;
+    --secondary-foreground: 40 30% 95%;
+
+    --muted: 25 15% 18%;
+    --muted-foreground: 35 20% 65%;
+
+    --accent: 18 55% 50%;
+    --accent-foreground: 40 33% 98%;
+
+    --destructive: 0 60% 40%;
+    --destructive-foreground: 40 33% 98%;
+
+    --border: 25 15% 22%;
+    --input: 25 15% 22%;
+    --ring: 145 40% 45%;
+
+    --earth: 25 30% 50%;
+    --earth-foreground: 40 33% 98%;
+    
+    --cream: 25 15% 18%;
+    --cream-foreground: 40 30% 95%;
+    
+    --sage: 145 15% 25%;
+    --sage-foreground: 145 30% 75%;
+    
+    --warm: 35 45% 55%;
+    --warm-foreground: 25 20% 10%;
+
+    --sidebar-background: 25 18% 12%;
+    --sidebar-foreground: 40 30% 95%;
+    --sidebar-primary: 145 40% 45%;
+    --sidebar-primary-foreground: 25 20% 10%;
+    --sidebar-accent: 25 15% 20%;
+    --sidebar-accent-foreground: 40 30% 95%;
+    --sidebar-border: 25 15% 22%;
+    --sidebar-ring: 145 40% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+@layer utilities {
+  .font-serif {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+  
+  .font-sans {
+    font-family: 'Source Sans 3', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .section-padding {
+    @apply py-16 md:py-24 px-4 md:px-8;
+  }
+  
+  .container-narrow {
+    @apply max-w-4xl mx-auto;
+  }
+  
+  .container-wide {
+    @apply max-w-7xl mx-auto;
+  }
+  
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .gradient-earth {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--earth)) 100%);
+  }
+  
+  .gradient-warm {
+    background: linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(var(--warm)) 100%);
+  }
+  
+  .gradient-sage {
+    background: linear-gradient(180deg, hsl(var(--sage)) 0%, hsl(var(--background)) 100%);
+  }
+}
+
+/* Custom animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes float-delayed {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 4s ease-in-out infinite;
+  animation-delay: 1s;
+}
