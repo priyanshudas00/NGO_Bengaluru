@@ -53,7 +53,7 @@ const Programs = () => {
       title: "Health & Wellbeing",
       subtitle: "Healthcare for all",
       description: "Good health is the foundation of a productive life. We bring basic healthcare awareness and support to communities that lack access to medical facilities.",
-      image: "https://media.giphy.com/media/3oKIPa2TdahY8LAAxy/giphy.gif",
+      image: "https://cdn.pixabay.com/animation/2025/01/31/15/41/15-41-45-282_512.gif",
       features: [
         "Health awareness camps and workshops",
         "Basic medical check-up drives",
