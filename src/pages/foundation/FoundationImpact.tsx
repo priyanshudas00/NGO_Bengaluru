@@ -91,28 +91,28 @@ const FoundationImpact = () => {
           <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
             <div className="md:col-span-2 aspect-video rounded-2xl overflow-hidden shadow-xl">
               <img 
-                src="https://media.giphy.com/media/l0HlNQ03J5JxX6lva/giphy.gif"
+                src="/images/1.jpeg"
                 alt="Children learning"
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="aspect-square md:aspect-auto rounded-2xl overflow-hidden shadow-xl">
               <img 
-                src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif"
+                src="/images/2.jpeg"
                 alt="Community service"
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="aspect-square md:aspect-auto rounded-2xl overflow-hidden shadow-xl">
               <img 
-                src="https://media.giphy.com/media/xT5LMHxhOfscxPfIfm/giphy.gif"
+                src="/images/3.jpeg"
                 alt="Food distribution"
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="md:col-span-2 aspect-video rounded-2xl overflow-hidden shadow-xl">
               <img 
-                src="https://media.giphy.com/media/3o7btNa0RUYa5E7iiQ/giphy.gif"
+                src="/images/4.jpeg"
                 alt="Volunteer work"
                 className="w-full h-full object-cover"
               />
