@@ -24,17 +24,24 @@ const FoundationHeader = () => {
   ];
 
   const isActive = (path: string) => location.pathname === path;
+  const isGalleryPage = location.pathname === '/gallery';
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        // Scrolling down and past 100px
-        setIsVisible(false);
-      } else if (currentScrollY < lastScrollY) {
-        // Scrolling up
-        setIsVisible(true);
+      if (isGalleryPage) {
+        // On gallery page, hide navbar when scrolled past 100px
+        setIsVisible(currentScrollY < 100);
+      } else {
+        // Original behavior for other pages
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+          // Scrolling down and past 100px
+          setIsVisible(false);
+        } else if (currentScrollY < lastScrollY) {
+          // Scrolling up
+          setIsVisible(true);
+        }
       }
       
       setLastScrollY(currentScrollY);
@@ -55,7 +62,7 @@ const FoundationHeader = () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [lastScrollY, lastMouseY]);
+  }, [lastScrollY, lastMouseY, isGalleryPage]);
 
   return (
     <>
