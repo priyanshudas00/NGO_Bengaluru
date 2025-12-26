@@ -18,19 +18,19 @@ const FoundationImpact = () => {
 
   const stories = [
     {
-      quote: "When Asangoham Foundation started the school in our village, we never thought our children would get a chance to study. Today, my daughter dreams of becoming a teacher.",
-      author: "A Parent from Sundarban",
-      image: "https://media.giphy.com/media/3oKIPa2TdahY8LAAxy/giphy.gif"
+      quote: "The skill training program gave me confidence and a way to earn. I am now teaching other women in my village.",
+      author: "Women's Empowerment Beneficiary",
+      image: "https://give.do/blog/wp-content/uploads/2024/02/5-NGOs-for-women-promoting-social-justice-Give-blog.png"
     },
     {
       quote: "The food distribution during the floods saved our family. In our darkest hour, the Foundation was there with us.",
       author: "Community Member",
-      image: "https://media.giphy.com/media/fxI1G5PNC5esyNlIUs/giphy.gif"
+      image: "https://balutsav.org/wp-content/uploads/2021/04/Volunteer-for-NGO-Bal-Utsav-Bangalore.jpg"
     },
     {
-      quote: "The skill training program gave me confidence and a way to earn. I am now teaching other women in my village.",
-      author: "Women's Empowerment Beneficiary",
-      image: "https://media.giphy.com/media/3o7btNhMBytxAM6YBa/giphy.gif"
+      quote: "When Asangoham Foundation started the school in our village, we never thought our children would get a chance to study. Today, my daughter dreams of becoming a teacher.",
+      author: "A Parent from Sundarban",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6cpLBVpHttTOpjQJ3WqesZq9-Alpnm4VyWQ&s"
     }
   ];
 
@@ -126,10 +126,10 @@ const FoundationImpact = () => {
         <div className="container px-4">
           <div className="text-center mb-12">
             <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Voices from the Ground
+              What Our Beneficiaries Say
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Stories of hope and transformation from the communities we serve.
+              Real stories from the communities we serve.
             </p>
           </div>
           

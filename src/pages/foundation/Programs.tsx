@@ -180,57 +180,6 @@ const Programs = () => {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20 bg-gradient-to-br from-primary/5 via-transparent to-accent/5">
-        <div className="container px-4">
-          <div className="max-w-4xl mx-auto text-center mb-12">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
-              What Our Beneficiaries Say
-            </h2>
-            <p className="text-muted-foreground text-lg">
-              Real stories from the communities we serve
-            </p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {[
-              {
-                quote: "The skill training program gave me confidence and a way to earn. I am now teaching other women in my village.",
-                author: "Women's Empowerment Beneficiary",
-                image: "https://give.do/blog/wp-content/uploads/2024/02/5-NGOs-for-women-promoting-social-justice-Give-blog.png"
-              },
-              {
-                quote: "The food distribution during the floods saved our family. In our darkest hour, the Foundation was there with us.",
-                author: "Community Member",
-                image: "https://balutsav.org/wp-content/uploads/2021/04/Volunteer-for-NGO-Bal-Utsav-Bangalore.jpg"
-              },
-              {
-                quote: "When Asangoham Foundation started the school in our village, we never thought our children would get a chance to study. Today, my daughter dreams of becoming a teacher.",
-                author: "A Parent from Sundarban",
-                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6cpLBVpHttTOpjQJ3WqesZq9-Alpnm4VyWQ&s"
-              }
-            ].map((testimonial, index) => (
-              <Card key={index} className="bg-card border-primary/20 hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="aspect-[4/3] rounded-lg overflow-hidden mb-4">
-                    <img 
-                      src={testimonial.image} 
-                      alt={testimonial.author} 
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <p className="text-muted-foreground italic leading-relaxed mb-4">
-                    "{testimonial.quote}"
-                  </p>
-                  <p className="font-semibold text-primary">
-                    — {testimonial.author}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="py-20 bg-secondary/30">
         <div className="container px-4">
