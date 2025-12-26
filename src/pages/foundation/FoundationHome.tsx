@@ -14,25 +14,25 @@ const FoundationHome = () => {
 
   const programs = [
     {
-      icon: "📚",
+      icon: "https://cdn.dribbble.com/userupload/19646652/file/original-b84277d6110f0722a534324ac2c977a8.gif",
       title: "Education",
       description: "Nurturing young minds through accessible learning",
       link: "/programs#education"
     },
     {
-      icon: "🍲",
+      icon: "https://cdn.prod.website-files.com/61b799c421943c76acd7a7cf/61b799c521943c0f70d7a8b4_31_GIFexport_1240px.gif",
       title: "Food Security",
       description: "Ensuring no one sleeps hungry in our communities",
       link: "/programs#food"
     },
     {
-      icon: "🩺",
+      icon: "https://media.lordicon.com/icons/wired/outline/1219-stethoscope.gif",
       title: "Health & Wellbeing",
       description: "Bringing healthcare closer to underserved areas",
       link: "/programs#health"
     },
     {
-      icon: "👩‍🦱",
+      icon: "https://cdn.dribbble.com/userupload/24406768/file/original-575dc6446f2d62af2b3536d3a298df23.gif",
       title: "Women Empowerment",
       description: "Building self-reliance through skill development",
       link: "/programs#women"
@@ -153,8 +153,8 @@ const FoundationHome = () => {
               <Link to={program.link} key={index}>
                 <Card className="h-full bg-card hover:bg-accent/5 border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300 group cursor-pointer">
                   <CardContent className="p-6 text-center">
-                    <div className="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                      {program.icon}
+                    <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <img src={program.icon} alt={program.title} className="w-20 h-20 mx-auto rounded-lg object-cover" />
                     </div>
                     <h3 className="font-display text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
                       {program.title}
