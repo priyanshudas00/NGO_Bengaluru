@@ -12,7 +12,7 @@ const Programs = () => {
       title: "Education Initiatives",
       subtitle: "Nurturing minds, building futures",
       description: "We believe education is the most powerful tool for transformation. Our education programs provide access to quality learning for children who would otherwise be left behind.",
-      image: "https://media.giphy.com/media/l0HlNQ03J5JxX6lva/giphy.gif",
+      image: "https://cdn.dribbble.com/userupload/24820770/file/original-b5e35fab6500eb6956e9844a29046b4d.gif",
       features: [
         "Free and low-cost education for underprivileged children",
         "Trained community educators from local areas",
