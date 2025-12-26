@@ -22,7 +22,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center justify-center gradient-sage overflow-hidden">
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-primary blur-3xl" />
+          <div className="absolute top-0 left-10 w-64 h-64 rounded-full bg-primary blur-3xl" />
           <div className="absolute bottom-20 right-10 w-80 h-80 rounded-full bg-accent blur-3xl" />
         </div>
         
