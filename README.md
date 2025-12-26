@@ -1,53 +1,175 @@
-# Welcome to your Lovable project
+# Asangoham Foundation Website
 
-## Project info
+A modern, dynamic website for the Asangoham Foundation built with React, TypeScript, and Supabase.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## 🚀 Features
 
-## How can I edit this code?
+- **Admin Dashboard**: Complete content management system with authentication
+- **Instagram-style Gallery**: Interactive photo gallery with likes, comments, and shares
+- **Responsive Design**: Mobile-first design with Tailwind CSS and shadcn/ui
+- **Real-time Updates**: Live data synchronization with Supabase
+- **Modern UI**: Clean, professional interface for NGO operations
 
-There are several ways of editing your application.
+## 🛠️ Tech Stack
 
-**Use Lovable**
+- **Frontend**: React 18 + TypeScript + Vite
+- **Styling**: Tailwind CSS + shadcn/ui components
+- **Backend**: Supabase (Database + Auth + Storage)
+- **Icons**: Lucide React
+- **Build**: Vite
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## 📋 Prerequisites
 
-Changes made via Lovable will be committed automatically to this repo.
+- Node.js 18+
+- npm or yarn
+- Supabase account and project
 
-**Use your preferred IDE**
+## 🚀 Quick Start
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/priyanshudas00/NGO_Bengaluru.git
+   cd NGO_Bengaluru
+   ```
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-Follow these steps:
+3. **Set up environment variables**
+   ```bash
+   cp .env.example .env
+   ```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+   Edit `.env` with your Supabase credentials:
+   ```env
+   VITE_SUPABASE_URL=https://your-project-id.supabase.co
+   VITE_SUPABASE_ANON_KEY=your_actual_anon_key_here
+   ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+4. **Set up Supabase database**
+   - Run the SQL scripts in `supabase-schema.sql` in your Supabase SQL Editor
+   - Execute `fix-admin-user.sql` to set up admin user profiles
 
-# Step 3: Install the necessary dependencies.
-npm i
+5. **Start development server**
+   ```bash
+   npm run dev
+   ```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+6. **Build for production**
+   ```bash
+   npm run build
+   ```
+
+## 🌐 Deployment
+
+### Environment Variables for Production
+
+**Important**: The `.env` file is gitignored for security. For production deployment, set these environment variables:
+
+#### Vercel
+```bash
+vercel env add VITE_SUPABASE_URL
+vercel env add VITE_SUPABASE_ANON_KEY
 ```
 
-**Edit a file directly in GitHub**
+#### Netlify
+Add to Site Settings > Environment Variables:
+```
+VITE_SUPABASE_URL=https://your-project-id.supabase.co
+VITE_SUPABASE_ANON_KEY=your_actual_anon_key_here
+```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+#### GitHub Pages / Static Hosting
+Set environment variables in your deployment pipeline or use build-time variables.
 
-**Use GitHub Codespaces**
+### Deploy Commands
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
+```bash
+# Build
+npm run build
+
+# Preview build locally
+npm run preview
+```
+
+## 🔧 Database Setup
+
+1. **Create Supabase Project**
+   - Go to [supabase.com](https://supabase.com)
+   - Create a new project
+
+2. **Run Database Schema**
+   - Open Supabase Dashboard > SQL Editor
+   - Run the contents of `supabase-schema.sql`
+
+3. **Set up Storage**
+   - Create a bucket named `posts` in Storage
+   - Set bucket to public
+
+4. **Configure Authentication**
+   - Enable email authentication in Authentication > Settings
+   - Run `fix-admin-user.sql` to create admin user profile trigger
+
+## 👤 Admin Setup
+
+1. **Create Admin User**
+   - Run `create-admin-user.sql` in Supabase SQL Editor
+   - Or manually create user in Supabase Auth dashboard
+
+2. **Login Credentials**
+   - Email: `admin@asangoham.org`
+   - Password: `admin123456` (change after first login)
+
+3. **Access Admin Panel**
+   - Navigate to `/admin` route
+   - Login with admin credentials
+
+## 📁 Project Structure
+
+```
+src/
+├── components/          # Reusable UI components
+│   ├── ui/             # shadcn/ui components
+│   ├── CreatePost.tsx  # Post creation modal
+│   ├── AdminSetup.tsx  # Admin user setup
+│   └── ...
+├── pages/              # Page components
+│   ├── Admin.tsx       # Admin dashboard
+│   ├── Gallery.tsx     # Photo gallery
+│   └── ...
+├── lib/
+│   └── supabase.ts     # Supabase client & types
+└── ...
+```
+
+## 🔒 Security Notes
+
+- Never commit `.env` files with real credentials
+- Use environment variables for all sensitive data
+- Regularly rotate API keys
+- Enable Row Level Security (RLS) in Supabase
+
+## 🐛 Troubleshooting
+
+### "Invalid supabaseUrl" Error
+- Ensure `VITE_SUPABASE_URL` is set correctly
+- URL should be in format: `https://your-project-id.supabase.co`
+- Check that environment variables are loaded in production
+
+### Admin Login Issues
+- Run `fix-admin-user.sql` in Supabase SQL Editor
+- Ensure user profile exists in `users` table
+- Check Supabase Auth settings
+
+### Build Errors
+- Clear node_modules: `rm -rf node_modules && npm install`
+- Update browserslist: `npx update-browserslist-db@latest`
+
+## 📄 License
+
+This project is part of the Asangoham Foundation's digital presence.
 - Edit files directly within the Codespace and commit and push your changes once you're done.
 
 ## What technologies are used for this project?

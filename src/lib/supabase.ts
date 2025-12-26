@@ -1,9 +1,34 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'your-supabase-url'
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'your-supabase-anon-key'
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+// Development fallback - only use in development, never in production
+const isDevelopment = import.meta.env.DEV
+
+if (!supabaseUrl || supabaseUrl.includes('your-project-id')) {
+  if (isDevelopment) {
+    console.warn('⚠️  Supabase URL not configured. Using development fallback.')
+    console.warn('Please set VITE_SUPABASE_URL in your .env file for full functionality.')
+  } else {
+    throw new Error('Supabase URL not configured. Please set VITE_SUPABASE_URL environment variable.')
+  }
+}
+
+if (!supabaseAnonKey || supabaseAnonKey.includes('your_actual_anon_key')) {
+  if (isDevelopment) {
+    console.warn('⚠️  Supabase anon key not configured. Using development fallback.')
+    console.warn('Please set VITE_SUPABASE_ANON_KEY in your .env file for full functionality.')
+  } else {
+    throw new Error('Supabase anon key not configured. Please set VITE_SUPABASE_ANON_KEY environment variable.')
+  }
+}
+
+// Create client with fallbacks for development
+const finalUrl = supabaseUrl || 'https://placeholder.supabase.co'
+const finalKey = supabaseAnonKey || 'placeholder-key'
+
+export const supabase = createClient(finalUrl, finalKey)
 
 // Database Types
 export interface Post {
