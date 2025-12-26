@@ -18,16 +18,16 @@ import {
 
 export default function Home() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center gradient-sage overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center gradient-sage overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-10 w-64 h-64 rounded-full bg-primary blur-3xl" />
           <div className="absolute top-32 left-1/2 transform -translate-x-1/2 w-80 h-80 rounded-full bg-accent blur-3xl" />
           <div className="absolute bottom-20 right-10 w-80 h-80 rounded-full bg-primary blur-3xl" />
         </div>
         
-        <div className="container-wide px-4 md:px-8 pb-32 relative z-10">
+        <div className="container-wide px-4 md:px-8 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8 animate-fade-in">
               <Sparkles className="w-4 h-4" />
@@ -70,7 +70,7 @@ export default function Home() {
       </section>
 
       {/* Impact Stats */}
-      <section className="section-padding bg-background">
+      <section className="pt-0 pb-16 md:pb-24 px-4 md:px-8 bg-background">
         <div className="container-wide px-4 md:px-8">
           <div className="text-center mb-12">
             <h2 className="font-serif text-3xl md:text-4xl font-semibold text-foreground mb-4">
@@ -266,8 +266,9 @@ export default function Home() {
                 Support a Child
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="text-base border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
+            <Button asChild size="lg" className="text-base bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 animate-pulse">
               <Link to="/needs">
+                <HandHeart className="w-5 h-5 mr-2" />
                 Donate Supplies
               </Link>
             </Button>

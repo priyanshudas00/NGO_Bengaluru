@@ -199,7 +199,9 @@ const Transparency = () => {
         <div className="container px-4">
           <Card className="max-w-4xl mx-auto bg-card border-primary/20">
             <CardContent className="p-8 md:p-12 text-center">
-              <div className="text-5xl mb-6">🤝</div>
+              <div className="text-5xl mb-6">
+                <img src="https://i.pinimg.com/originals/13/1a/ce/131ace36d4f29414f0675b2357b8653e.gif" alt="Shaking hands" className="w-20 h-20 mx-auto rounded-lg" />
+              </div>
               <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-4">
                 See Our Work Firsthand
               </h2>

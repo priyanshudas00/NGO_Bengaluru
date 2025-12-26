@@ -14,6 +14,12 @@ import Help from "./pages/foundation/Help";
 import Transparency from "./pages/foundation/Transparency";
 import FoundationContact from "./pages/foundation/FoundationContact";
 
+// Admin page
+import Admin from "./pages/Admin";
+
+// Gallery page
+import Gallery from "./pages/Gallery";
+
 // School pages
 import { Layout } from "./components/layout/Layout";
 import Home from "./pages/Home";
@@ -51,6 +57,12 @@ const App = () => (
           <Route path="/school/teachers" element={<Layout><Teachers /></Layout>} />
           <Route path="/school/future" element={<Layout><Future /></Layout>} />
           <Route path="/school/contact" element={<Layout><Contact /></Layout>} />
+          
+          {/* Admin Route */}
+          <Route path="/admin" element={<Admin />} />
+          
+          {/* Gallery Route */}
+          <Route path="/gallery" element={<Gallery />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>

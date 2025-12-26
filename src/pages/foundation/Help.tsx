@@ -56,11 +56,11 @@ const Help = () => {
   };
 
   const donationAreas = [
-    { emoji: "📚", name: "Education", description: "Books, stationery, teacher salaries" },
-    { emoji: "🍲", name: "Food Security", description: "Daily meals for children and communities" },
+    { emoji: "https://cdn.dribbble.com/userupload/19646652/file/original-b84277d6110f0722a534324ac2c977a8.gif", name: "Education", description: "Books, stationery, teacher salaries" },
+    { emoji: "https://cdn.prod.website-files.com/61b799c421943c76acd7a7cf/61b799c521943c0f70d7a8b4_31_GIFexport_1240px.gif", name: "Food Security", description: "Daily meals for children and communities" },
     { emoji: "🏫", name: "Infrastructure", description: "School building, clean water, facilities" },
-    { emoji: "🩺", name: "Healthcare", description: "Health camps and medical support" },
-    { emoji: "👩‍🦱", name: "Women Empowerment", description: "Skill training and self-help groups" },
+    { emoji: "https://media.lordicon.com/icons/wired/outline/1219-stethoscope.gif", name: "Healthcare", description: "Health camps and medical support" },
+    { emoji: "https://cdn.dribbble.com/userupload/24406768/file/original-575dc6446f2d62af2b3536d3a298df23.gif", name: "Women Empowerment", description: "Skill training and self-help groups" },
     { emoji: "🎯", name: "General Fund", description: "Where it's needed most" }
   ];
 
@@ -71,7 +71,9 @@ const Help = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
         <div className="container px-4 relative">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="text-5xl mb-6">🙏</div>
+            <div className="text-5xl mb-6">
+                <img src="https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUyZGUwYXdqcTMxY29qaWx0amJqa3Btb2wyZ2F3ZDFscXFhNzBxZDRmbyZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/2vDJLn6LzoSSIJe3Xj/giphy.gif" alt="Praying hands" className="w-20 h-20 mx-auto rounded-lg" />
+              </div>
             <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
               How You Can Help
             </h1>
@@ -135,8 +137,12 @@ const Help = () => {
             {donationAreas.map((area, index) => (
               <Card key={index} className="bg-card hover:shadow-md transition-all hover:border-primary/30 cursor-pointer group">
                 <CardContent className="p-5 flex items-start gap-4">
-                  <div className="text-3xl group-hover:scale-110 transition-transform">
-                    {area.emoji}
+                  <div className="group-hover:scale-110 transition-transform">
+                    {area.emoji.startsWith('http') ? (
+                      <img src={area.emoji} alt={area.name} className="w-12 h-12 rounded-lg object-cover" />
+                    ) : (
+                      <div className="text-3xl">{area.emoji}</div>
+                    )}
                   </div>
                   <div>
                     <h3 className="font-medium text-foreground group-hover:text-primary transition-colors">
