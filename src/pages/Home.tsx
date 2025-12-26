@@ -20,13 +20,14 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center justify-center gradient-sage overflow-hidden">
+      <section className="relative min-h-[100vh] flex items-center justify-center gradient-sage overflow-hidden pt-0">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-10 w-64 h-64 rounded-full bg-primary blur-3xl" />
-          <div className="absolute bottom-20 right-10 w-80 h-80 rounded-full bg-accent blur-3xl" />
+          <div className="absolute top-32 left-1/2 transform -translate-x-1/2 w-80 h-80 rounded-full bg-accent blur-3xl" />
+          <div className="absolute bottom-20 right-10 w-80 h-80 rounded-full bg-primary blur-3xl" />
         </div>
         
-        <div className="container-wide px-4 md:px-8 py-20 relative z-10">
+        <div className="container-wide px-4 md:px-8 py-32 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8 animate-fade-in">
               <Sparkles className="w-4 h-4" />

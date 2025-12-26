@@ -58,9 +58,9 @@ const Header = () => {
   return (
     <>
       {/* Fixed Logo */}
-      <div className="fixed top-4 left-4 z-50">
+      <div className="fixed top-0 left-0 z-50">
         <Link to="/school" className="flex items-center gap-3">
-          <img src="/images/school logo.png" alt="Sundarban Child Campus" className="w-50 h-20" />
+          <img src="/images/school logo.png" alt="Sundarban Child Campus" className="w-70 h-40" />
         </Link>
       </div>
 
