@@ -8,9 +8,18 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Upload, X, Save, Eye } from "lucide-react";
 
+interface PostFormData {
+  title: string;
+  content: string;
+  caption: string;
+  status: 'draft' | 'published';
+  image?: File | null;
+  image_url?: string;
+}
+
 interface CreatePostProps {
   onClose: () => void;
-  onSave: (post: any) => void;
+  onSave: (post: PostFormData) => void;
 }
 
 const CreatePost = ({ onClose, onSave }: CreatePostProps) => {

@@ -16,6 +16,7 @@ const FoundationHeader = () => {
     { name: "About", path: "/about" },
     { name: "Programs", path: "/programs" },
     { name: "Impact", path: "/impact" },
+    { name: "Gallery", path: "/gallery" },
     { name: "How to Help", path: "/help" },
     { name: "Transparency", path: "/transparency" },
     { name: "School", path: "/school" },

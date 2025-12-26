@@ -16,6 +16,7 @@ import FoundationContact from "./pages/foundation/FoundationContact";
 
 // Admin page
 import Admin from "./pages/Admin";
+import AdminSetup from "./components/AdminSetup";
 
 // Gallery page
 import Gallery from "./pages/Gallery";
@@ -58,11 +59,11 @@ const App = () => (
           <Route path="/school/future" element={<Layout><Future /></Layout>} />
           <Route path="/school/contact" element={<Layout><Contact /></Layout>} />
           
-          {/* Admin Route */}
+          {/* Admin Routes */}
           <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/setup" element={<AdminSetup />} />
           
-          {/* Gallery Route */}
-          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/gallery" element={<FoundationLayout><Gallery /></FoundationLayout>} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>

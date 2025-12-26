@@ -12,6 +12,13 @@ dist
 dist-ssr
 *.local
 
+# Environment variables
+.env
+
+# Setup files (remove after setup)
+create-admin-user.sql
+ADMIN_SETUP.md
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -2,7 +2,14 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
-import { Heart, Users, BookOpen, HandHeart, ArrowRight, Sparkles } from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { Heart, Users, BookOpen, HandHeart, ArrowRight, Sparkles, Camera } from "lucide-react";
 
 const FoundationHome = () => {
   const impactStats = [
@@ -217,6 +224,158 @@ const FoundationHome = () => {
                 <p className="text-sm font-medium text-foreground">Since 2020</p>
                 <p className="text-xs text-muted-foreground">Transforming lives</p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery Section */}
+      <section className="py-20 bg-gray-50 relative z-10">
+        <div className="container px-4">
+          <div className="text-center mb-12">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Our Gallery
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
+              Moments captured from our journey of transformation and hope in the communities we serve.
+            </p>
+          </div>
+
+          <div className="max-w-5xl mx-auto">
+            <Carousel
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className="w-full"
+            >
+              <CarouselContent>
+                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                  <div className="p-1">
+                    <Card className="overflow-hidden border-0 shadow-lg">
+                      <div className="aspect-square relative">
+                        <img
+                          src="https://www.paybito.com/wp-content/uploads/2023/03/children-of-sundarbans.jpg"
+                          alt="Children learning in classroom"
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                          <Camera className="w-8 h-8 text-white" />
+                        </div>
+                      </div>
+                      <CardContent className="p-4">
+                        <p className="text-sm text-muted-foreground">Education Program</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                  <div className="p-1">
+                    <Card className="overflow-hidden border-0 shadow-lg">
+                      <div className="aspect-square relative">
+                        <img
+                          src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=500"
+                          alt="Community gathering"
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                          <Camera className="w-8 h-8 text-white" />
+                        </div>
+                      </div>
+                      <CardContent className="p-4">
+                        <p className="text-sm text-muted-foreground">Community Outreach</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                  <div className="p-1">
+                    <Card className="overflow-hidden border-0 shadow-lg">
+                      <div className="aspect-square relative">
+                        <img
+                          src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=500"
+                          alt="Food distribution"
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                          <Camera className="w-8 h-8 text-white" />
+                        </div>
+                      </div>
+                      <CardContent className="p-4">
+                        <p className="text-sm text-muted-foreground">Food Security Initiative</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                  <div className="p-1">
+                    <Card className="overflow-hidden border-0 shadow-lg">
+                      <div className="aspect-square relative">
+                        <img
+                          src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500"
+                          alt="Women empowerment workshop"
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                          <Camera className="w-8 h-8 text-white" />
+                        </div>
+                      </div>
+                      <CardContent className="p-4">
+                        <p className="text-sm text-muted-foreground">Women Empowerment</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                  <div className="p-1">
+                    <Card className="overflow-hidden border-0 shadow-lg">
+                      <div className="aspect-square relative">
+                        <img
+                          src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=500"
+                          alt="Health camp"
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                          <Camera className="w-8 h-8 text-white" />
+                        </div>
+                      </div>
+                      <CardContent className="p-4">
+                        <p className="text-sm text-muted-foreground">Health & Wellbeing</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                  <div className="p-1">
+                    <Card className="overflow-hidden border-0 shadow-lg">
+                      <div className="aspect-square relative">
+                        <img
+                          src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500"
+                          alt="Volunteer activities"
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                          <Camera className="w-8 h-8 text-white" />
+                        </div>
+                      </div>
+                      <CardContent className="p-4">
+                        <p className="text-sm text-muted-foreground">Volunteer Engagement</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+              </CarouselContent>
+              <CarouselPrevious className="left-4" />
+              <CarouselNext className="right-4" />
+            </Carousel>
+
+            <div className="text-center mt-8">
+              <Button asChild variant="outline" className="rounded-full">
+                <Link to="/gallery">
+                  <Camera className="mr-2 h-4 w-4" />
+                  View Full Gallery
+                </Link>
+              </Button>
             </div>
           </div>
         </div>

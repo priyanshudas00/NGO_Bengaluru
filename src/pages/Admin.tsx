@@ -21,60 +21,215 @@ import {
   Share,
   Upload
 } from "lucide-react";
+import { supabase, Post, User } from "@/lib/supabase";
 import CreatePost from "@/components/CreatePost";
+
+interface PostFormData {
+  title: string;
+  content: string;
+  caption: string;
+  status: 'draft' | 'published';
+  image?: File | null;
+  image_url?: string;
+}
 
 const Admin = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [showCreatePost, setShowCreatePost] = useState(false);
-
-  // Mock data - will be replaced with Supabase
-  const [stats] = useState({
-    totalUsers: 1250,
-    totalPosts: 45,
-    totalLikes: 3200,
-    totalComments: 890
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
+  const [stats, setStats] = useState({
+    totalUsers: 0,
+    totalPosts: 0,
+    totalLikes: 0,
+    totalComments: 0
   });
 
-  const [posts, setPosts] = useState([
-    {
-      id: 1,
-      title: "New School Opening in Sundarban",
-      content: "We're excited to announce the opening of our new community school...",
-      image: "/images/1.jpeg",
-      likes: 45,
-      comments: 12,
-      shares: 8,
-      status: "published",
-      createdAt: "2025-01-15"
-    },
-    {
-      id: 2,
-      title: "Food Distribution Drive",
-      content: "Successfully distributed meals to 200 families affected by recent floods...",
-      image: "/images/2.jpeg",
-      likes: 67,
-      comments: 23,
-      shares: 15,
-      status: "published",
-      createdAt: "2025-01-10"
-    }
-  ]);
+  // Check authentication on mount
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
-  const handleSavePost = (post: any) => {
-    // In real implementation, save to Supabase
-    console.log("Saving post:", post);
-    setPosts(prev => [post, ...prev]);
+  // Fetch data when authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchDashboardData();
+    }
+  }, [isAuthenticated]);
+
+  const checkAuth = async () => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      setIsAuthenticated(!!session);
+    } catch (error) {
+      console.error('Auth check failed:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleLogin = (e: React.FormEvent) => {
+  const fetchDashboardData = async () => {
+    try {
+      // Fetch posts
+      const { data: postsData, error: postsError } = await supabase
+        .from('posts')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (postsError) throw postsError;
+      setPosts(postsData || []);
+
+      // Fetch users
+      const { data: usersData, error: usersError } = await supabase
+        .from('users')
+        .select('*');
+
+      if (usersError) throw usersError;
+      setUsers(usersData || []);
+
+      // Calculate stats
+      const totalLikes = postsData?.reduce((sum, post) => sum + (post.likes_count || 0), 0) || 0;
+      const totalComments = postsData?.reduce((sum, post) => sum + (post.comments_count || 0), 0) || 0;
+
+      setStats({
+        totalUsers: usersData?.length || 0,
+        totalPosts: postsData?.length || 0,
+        totalLikes,
+        totalComments
+      });
+    } catch (error) {
+      console.error('Failed to fetch dashboard data:', error);
+    }
+  };
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Mock authentication - replace with Supabase auth
-    if (loginData.email === "admin@asangoham.org" && loginData.password === "admin123") {
+    setIsLoading(true);
+
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: loginData.email,
+        password: loginData.password,
+      });
+
+      if (error) throw error;
+
       setIsAuthenticated(true);
+    } catch (error) {
+      console.error('Login failed:', error);
+      alert('Login failed. Please check your credentials.');
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setIsAuthenticated(false);
+    setPosts([]);
+    setUsers([]);
+  };
+
+  const handleSavePost = async (postData: PostFormData) => {
+    try {
+      let imageUrl = '';
+
+      // Upload image if provided
+      if (postData.image) {
+        const fileExt = postData.image.name.split('.').pop();
+        const fileName = `${Date.now()}.${fileExt}`;
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from('posts')
+          .upload(fileName, postData.image);
+
+        if (uploadError) throw uploadError;
+
+        imageUrl = supabase.storage.from('posts').getPublicUrl(fileName).data.publicUrl;
+      }
+
+      // Get current user
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      if (userError || !user) throw new Error('User not authenticated');
+
+      // Ensure user profile exists
+      const { data: existingUser } = await supabase
+        .from('users')
+        .select('id')
+        .eq('id', user.id)
+        .single();
+
+      if (!existingUser) {
+        // Create user profile if it doesn't exist
+        const { error: profileError } = await supabase
+          .from('users')
+          .insert([{
+            id: user.id,
+            email: user.email,
+            full_name: user.user_metadata?.full_name || 'Admin User',
+            role: 'admin'
+          }]);
+
+        if (profileError) {
+          console.warn('Failed to create user profile:', profileError);
+          // Continue anyway - the post might still work
+        }
+      }
+
+      const { data, error } = await supabase
+        .from('posts')
+        .insert([{
+          title: postData.title,
+          content: postData.content,
+          image_url: imageUrl,
+          caption: postData.caption,
+          status: postData.status,
+          author_id: user.id
+        }])
+        .select();
+
+      if (error) throw error;
+
+      // Refresh posts
+      fetchDashboardData();
+      alert('Post saved successfully!');
+    } catch (error) {
+      console.error('Failed to save post:', error);
+      alert('Failed to save post. Please try again.');
+    }
+  };
+
+  const handleDeletePost = async (postId: string) => {
+    if (!confirm('Are you sure you want to delete this post?')) return;
+
+    try {
+      const { error } = await supabase
+        .from('posts')
+        .delete()
+        .eq('id', postId);
+
+      if (error) throw error;
+
+      // Refresh posts
+      fetchDashboardData();
+    } catch (error) {
+      console.error('Failed to delete post:', error);
+      alert('Failed to delete post. Please try again.');
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!isAuthenticated) {
     return (
@@ -120,7 +275,7 @@ const Admin = () => {
             <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
             <Button
               variant="outline"
-              onClick={() => setIsAuthenticated(false)}
+              onClick={handleLogout}
             >
               Logout
             </Button>
@@ -200,7 +355,7 @@ const Admin = () => {
                   {posts.slice(0, 3).map((post) => (
                     <div key={post.id} className="flex items-center space-x-4 p-4 border rounded-lg">
                       <img
-                        src={post.image}
+                        src={post.image_url || '/placeholder.svg'}
                         alt={post.title}
                         className="w-16 h-16 rounded-lg object-cover"
                       />
@@ -208,9 +363,9 @@ const Admin = () => {
                         <h3 className="font-medium text-gray-900">{post.title}</h3>
                         <p className="text-sm text-gray-600 truncate">{post.content}</p>
                         <div className="flex items-center space-x-4 mt-2 text-sm text-gray-500">
-                          <span>{post.likes} likes</span>
-                          <span>{post.comments} comments</span>
-                          <span>{post.createdAt}</span>
+                          <span>{post.likes_count || 0} likes</span>
+                          <span>{post.comments_count || 0} comments</span>
+                          <span>{new Date(post.created_at).toLocaleDateString()}</span>
                         </div>
                       </div>
                       <Badge variant={post.status === 'published' ? 'default' : 'secondary'}>
@@ -239,7 +394,7 @@ const Admin = () => {
                   <CardContent className="p-6">
                     <div className="flex items-start space-x-4">
                       <img
-                        src={post.image}
+                        src={post.image_url || '/placeholder.svg'}
                         alt={post.title}
                         className="w-24 h-24 rounded-lg object-cover"
                       />
@@ -249,17 +404,13 @@ const Admin = () => {
                         <div className="flex items-center space-x-6 mt-4 text-sm text-gray-500">
                           <span className="flex items-center">
                             <Heart className="h-4 w-4 mr-1" />
-                            {post.likes}
+                            {post.likes_count || 0}
                           </span>
                           <span className="flex items-center">
                             <MessageCircle className="h-4 w-4 mr-1" />
-                            {post.comments}
+                            {post.comments_count || 0}
                           </span>
-                          <span className="flex items-center">
-                            <Share className="h-4 w-4 mr-1" />
-                            {post.shares}
-                          </span>
-                          <span>{post.createdAt}</span>
+                          <span>{new Date(post.created_at).toLocaleDateString()}</span>
                         </div>
                       </div>
                       <div className="flex space-x-2">
@@ -269,7 +420,11 @@ const Admin = () => {
                         <Button variant="outline" size="sm">
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button variant="outline" size="sm">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleDeletePost(post.id)}
+                        >
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
