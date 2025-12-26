@@ -60,7 +60,7 @@ export function Header() {
       {/* Fixed Logo */}
       <div className="fixed top-4 left-4 z-50">
         <Link to="/school" className="flex items-center gap-3">
-          <img src="/images/school logo.png" alt="Sundarban Child Campus" className="w-16 h-16" />
+          <img src="/images/school logo.png" alt="Sundarban Child Campus" className="w-50 h-20" />
         </Link>
       </div>
 
