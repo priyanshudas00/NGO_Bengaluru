@@ -183,15 +183,15 @@ const FoundationImpact = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="relative">
-                    <div className="aspect-square rounded-2xl overflow-hidden shadow-lg">
-                      <img 
-                        src="https://media.giphy.com/media/l0HlNQ03J5JxX6lva/giphy.gif"
-                        alt="Growth journey"
-                        className="w-full h-full object-cover"
-                      />
+                    <div className="relative">
+                      <div className="aspect-square rounded-2xl overflow-hidden shadow-lg">
+                        <img 
+                          src="/images/growthJourney.jpeg"
+                          alt="Growth journey"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
                     </div>
-                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -204,7 +204,9 @@ const FoundationImpact = () => {
         <div className="container px-4">
           <Card className="max-w-4xl mx-auto bg-card border-primary/20">
             <CardContent className="p-8 md:p-12 text-center">
-              <div className="text-5xl mb-6">🙏</div>
+              <div className="text-5xl mb-6">
+                <img src="https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUyZGUwYXdqcTMxY29qaWx0amJqa3Btb2wyZ2F3ZDFscXFhNzBxZDRmbyZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/2vDJLn6LzoSSIJe3Xj/giphy.gif" alt="Praying hands" className="w-20 h-20 mx-auto rounded-lg" />
+              </div>
               <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-4">
                 Be Part of This Impact
               </h2>
