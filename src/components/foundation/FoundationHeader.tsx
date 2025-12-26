@@ -65,8 +65,8 @@ const FoundationHeader = () => {
         </Link>
       </div>
 
-      {/* Sticky Navbar */}
-      <header className={`sticky top-0 z-40 transition-all duration-500 ${
+      {/* Floating Navbar */}
+      <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
         isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
       }`}>
         <div className="flex items-center justify-center py-2">

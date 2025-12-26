@@ -64,8 +64,8 @@ const Header = () => {
         </Link>
       </div>
 
-      {/* Sticky Navbar */}
-      <header className={`sticky top-0 z-40 transition-all duration-500 ${
+      {/* Floating Navbar */}
+      <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
         isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
       }`}>
         <div className="flex items-center justify-center py-2">
@@ -112,38 +112,47 @@ const Header = () => {
         <div className="lg:hidden">
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <Menu className="h-6 w-6" />
+              <Button
+                variant="ghost"
+                size="sm"
+                className="fixed top-4 right-4 z-50 h-10 w-10 p-0 bg-green-50/80 backdrop-blur-md rounded-full border border-green-200/30 shadow-lg"
+              >
+                <Menu className="h-5 w-5" />
+                <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-72">
-              <nav className="flex flex-col gap-2 mt-8">
+            <SheetContent side="right" className="w-80 bg-white/95 backdrop-blur-md border-l border-green-200/30">
+              <div className="flex flex-col gap-6 mt-6">
                 <Link to="/" className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors">
                   <ArrowLeft className="h-5 w-5" />
                   Back to Foundation
                 </Link>
                 <div className="h-px bg-border" />
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.path}
-                    to={link.path}
-                    onClick={() => setIsOpen(false)}
-                    className={`px-4 py-3 rounded-lg text-base font-medium transition-colors ${
-                      isActive(link.path)
-                        ? "bg-primary/10 text-primary"
-                        : "text-muted-foreground hover:bg-secondary"
-                    }`}
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-                <Button asChild className="mt-4 rounded-full">
-                  <Link to="/help" onClick={() => setIsOpen(false)}>
-                    <Heart className="mr-2 h-4 w-4" />
-                    Donate
-                  </Link>
-                </Button>
-              </nav>
+                <nav className="flex flex-col gap-4">
+                  {navLinks.map((link) => (
+                    <Link
+                      key={link.path}
+                      to={link.path}
+                      onClick={() => setIsOpen(false)}
+                      className={`px-4 py-3 text-base font-medium rounded-xl transition-colors ${
+                        isActive(link.path)
+                          ? "bg-primary/10 text-primary"
+                          : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                      }`}
+                    >
+                      {link.name}
+                    </Link>
+                  ))}
+                </nav>
+                <div className="mt-6">
+                  <Button asChild className="w-full rounded-full">
+                    <Link to="/help" onClick={() => setIsOpen(false)}>
+                      <Heart className="mr-2 h-4 w-4" />
+                      Donate
+                    </Link>
+                  </Button>
+                </div>
+              </div>
             </SheetContent>
           </Sheet>
         </div>
