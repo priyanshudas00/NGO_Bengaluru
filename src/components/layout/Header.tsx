@@ -115,9 +115,9 @@ const Header = () => {
               <Button
                 variant="ghost"
                 size="sm"
-                className="fixed top-4 right-4 z-50 h-10 w-10 p-0 bg-green-50/80 backdrop-blur-md rounded-full border border-green-200/30 shadow-lg"
+                className="fixed top-6 right-6 z-[60] h-12 w-12 p-0 bg-green-50/95 backdrop-blur-md rounded-full border border-green-200/40 shadow-xl hover:bg-green-100/95 active:bg-green-200/95 transition-all duration-200 touch-manipulation"
               >
-                <Menu className="h-5 w-5" />
+                <Menu className="h-6 w-6 text-green-700" />
                 <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
