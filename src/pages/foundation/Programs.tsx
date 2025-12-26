@@ -33,7 +33,7 @@ const Programs = () => {
       title: "Food & Nutrition",
       subtitle: "Ensuring no one sleeps hungry",
       description: "Hunger should never be a barrier to dreams. Our food security programs provide nutritious meals to those in need, especially during crisis situations and festivals.",
-      image: "https://media.giphy.com/media/fxI1G5PNC5esyNlIUs/giphy.gif",
+      image: "https://miro.medium.com/1*8enutq41infBgZG9iIGnBw.gif",
       features: [
         "Regular community food distribution",
         "Emergency food relief during disasters",
