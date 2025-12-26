@@ -73,7 +73,7 @@ const Programs = () => {
       title: "Women Empowerment",
       subtitle: "Building self-reliance",
       description: "Empowered women build empowered communities. Our programs focus on skill development, financial literacy, and creating opportunities for women to become self-reliant.",
-      image: "https://media.giphy.com/media/3o7btNhMBytxAM6YBa/giphy.gif",
+      image: "https://give.do/blog/wp-content/uploads/2022/03/Equitable-banner.jpg",
       features: [
         "Vocational skill training programs",
         "Financial literacy workshops",
@@ -185,7 +185,9 @@ const Programs = () => {
         <div className="container px-4">
           <Card className="max-w-4xl mx-auto bg-card border-primary/20">
             <CardContent className="p-8 md:p-12 text-center">
-              <div className="text-5xl mb-6">🤝</div>
+              <div className="text-5xl mb-6">
+                <img src="https://www.vhv.rs/dpng/d/9-98278_shaking-hands-png-gif-transparent-png.png" alt="Shaking hands" className="w-20 h-20 mx-auto rounded-lg" />
+              </div>
               <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-4">
                 Want to Support Our Programs?
               </h2>
