@@ -74,7 +74,7 @@ const FoundationHeader = () => {
             {/* Logo space placeholder */}
             <div className="w-32"></div>
 
-            <nav className="hidden lg:flex items-center gap-1 bg-green-50/80 backdrop-blur-md rounded-full px-4 py-5 border border-green-200/30 shadow-lg">
+            <nav className="hidden lg:flex items-center gap-1 bg-green-50/80 backdrop-blur-md rounded-full px-6 py-3 border border-green-200/30 shadow-lg">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
