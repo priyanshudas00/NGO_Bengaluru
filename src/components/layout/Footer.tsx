@@ -50,9 +50,9 @@ export function Footer() {
                 <MapPin className="w-4 h-4 mt-1 opacity-80" />
                 <span className="text-sm opacity-90">Sundarban Area,<br />West Bengal, India</span>
               </div>
-              <a href="tel:+918050500434" className="flex items-center gap-3 text-sm opacity-80 hover:opacity-100 transition-opacity">
+              <a href="tel:+919620555694" className="flex items-center gap-3 text-sm opacity-80 hover:opacity-100 transition-opacity">
                 <Phone className="w-4 h-4" />
-                +91 80505 00434
+                +91 96205 55694
               </a>
               <a href="mailto:contact@sundarbanchild.org" className="flex items-center gap-3 text-sm opacity-80 hover:opacity-100 transition-opacity">
                 <Mail className="w-4 h-4" />

@@ -36,14 +36,23 @@ const FoundationFooter = () => {
             <h4 className="font-semibold mb-4">Contact</h4>
             <div className="space-y-2 text-sm text-background/70">
               <p className="flex items-center gap-2"><MapPin className="w-4 h-4" /> Sundarban, West Bengal</p>
-              <p className="flex items-center gap-2"><Phone className="w-4 h-4" /> +91 80505 00434</p>
+              <p className="flex items-center gap-2"><Phone className="w-4 h-4" /> +91 96205 55694</p>
               <p className="flex items-center gap-2"><Mail className="w-4 h-4" /> contact@asangoham.org</p>
             </div>
           </div>
         </div>
         
         <div className="border-t border-background/20 pt-6 text-center text-sm text-background/60">
-          <p>© {new Date().getFullYear()} Asangoham Foundation. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Asangoham Foundation. All rights reserved. | Built by{' '}
+            <a
+              href="https://www.linkedin.com/in/priyanshudas00"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:text-primary/80 underline"
+            >
+              priyanshudas00
+            </a>
+          </p>
         </div>
       </div>
     </footer>

@@ -192,13 +192,13 @@ export default function Contact() {
                     </div>
                     <div>
                       <h3 className="font-medium text-foreground">WhatsApp (Fastest)</h3>
-                      <p className="text-muted-foreground text-sm">+91 80505 00434</p>
+                      <p className="text-muted-foreground text-sm">+91 96205 55694</p>
                       <p className="text-xs text-primary mt-1">Click to chat →</p>
                     </div>
                   </a>
                   
                   <a 
-                    href="tel:+918050500434"
+                    href="tel:+919620555694"
                     className="flex items-start gap-4 p-4 bg-card rounded-xl border border-border/50 hover:shadow-md transition-shadow"
                   >
                     <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -206,7 +206,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <h3 className="font-medium text-foreground">Phone</h3>
-                      <p className="text-muted-foreground text-sm">+91 80505 00434</p>
+                      <p className="text-muted-foreground text-sm">+91 96205 55694</p>
                       <p className="text-xs text-muted-foreground mt-1">Available 9 AM - 6 PM IST</p>
                     </div>
                   </a>

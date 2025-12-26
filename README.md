@@ -172,24 +172,13 @@ src/
 This project is part of the Asangoham Foundation's digital presence.
 - Edit files directly within the Codespace and commit and push your changes once you're done.
 
-## What technologies are used for this project?
+## 👨‍💻 Developer
 
-This project is built with:
+This project was built by **Priyanshu Raj** ([priyanshudas00](https://github.com/priyanshudas00))
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- **LinkedIn**: [priyanshudas00](https://www.linkedin.com/in/priyanshudas00)
+- **GitHub**: [priyanshudas00](https://github.com/priyanshudas00)
 
-## How can I deploy this project?
+## 📄 License
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+This project is part of the Asangoham Foundation's digital presence.

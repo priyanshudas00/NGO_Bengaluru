@@ -38,7 +38,7 @@ const FoundationContact = () => {
     {
       icon: Phone,
       title: "Phone",
-      details: ["+91 80505 00434"]
+      details: ["+91 96205 55694"]
     },
     {
       icon: Mail,
