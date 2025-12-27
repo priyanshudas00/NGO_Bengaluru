@@ -81,10 +81,11 @@ const Gallery = () => {
       setPosts(prev => page === 1 ? postsData || [] : [...prev, ...(postsData || [])]);
       setHasMore((count || 0) > page * PAGE_SIZE);
 
-      // Fetch comments for new posts only
-      const newPosts = postsData || [];
+      // Comments disabled in demo mode
       const commentsData: {[postId: string]: Comment[]} = {};
-      
+
+      // Commented out comment fetching for demo
+      /*
       await Promise.all(
         newPosts.map(async (post) => {
           const { data: postComments } = await supabase
@@ -97,16 +98,13 @@ const Gallery = () => {
           commentsData[post.id] = postComments || [];
         })
       );
+      */
 
       setComments(prev => ({ ...prev, ...commentsData }));
 
-      // In real implementation, fetch user's likes
-      const { data: userLikesData } = await supabase
-        .from('likes')
-        .select('post_id')
-        .eq('user_id', 'mock-user-id');
-
-      const userLikes = new Set(userLikesData?.map(like => like.post_id) || []);
+      // Load user's likes from localStorage for demo
+      const likedPostsFromStorage = JSON.parse(localStorage.getItem('likedPosts') || '[]');
+      const userLikes = new Set(likedPostsFromStorage);
       setLikedPosts(userLikes);
 
     } catch (error) {
@@ -131,15 +129,14 @@ const Gallery = () => {
 
       if (!post) return;
 
+      // Use localStorage for demo purposes instead of Supabase
+      const likedPostsFromStorage = JSON.parse(localStorage.getItem('likedPosts') || '[]');
+      
       if (isLiked) {
-        const { error } = await supabase
-          .from('likes')
-          .delete()
-          .eq('post_id', postId)
-          .eq('user_id', 'mock-user-id');
-
-        if (error) throw error;
-
+        // Remove like from localStorage
+        const updatedLikes = likedPostsFromStorage.filter((id: string) => id !== postId);
+        localStorage.setItem('likedPosts', JSON.stringify(updatedLikes));
+        
         setLikedPosts(prev => new Set([...prev].filter(id => id !== postId)));
 
         setPosts(prev => prev.map(p =>
@@ -152,15 +149,10 @@ const Gallery = () => {
         });
 
       } else {
-        const { error } = await supabase
-          .from('likes')
-          .insert([{
-            post_id: postId,
-            user_id: 'mock-user-id'
-          }]);
-
-        if (error) throw error;
-
+        // Add like to localStorage
+        const updatedLikes = [...likedPostsFromStorage, postId];
+        localStorage.setItem('likedPosts', JSON.stringify(updatedLikes));
+        
         setLikedPosts(prev => new Set([...prev, postId]));
 
         setPosts(prev => prev.map(p =>
@@ -198,44 +190,14 @@ const Gallery = () => {
 
     setIsCommenting(postId);
     try {
-      const { data, error } = await supabase
-        .from('comments')
-        .insert([{
-          post_id: postId,
-          user_id: 'mock-user-id',
-          content: newComment.trim(),
-          user_name: 'Anonymous User'
-        }])
-        .select();
-
-      if (error) throw error;
-
-      // Update local state
-      const newCommentData = data?.[0];
-      if (newCommentData) {
-        setComments(prev => ({
-          ...prev,
-          [postId]: [...(prev[postId] || []), newCommentData]
-        }));
-
-        setPosts(prev => prev.map(p =>
-          p.id === postId ? { ...p, comments_count: (p.comments_count || 0) + 1 } : p
-        ));
-
-        if (selectedPost?.id === postId) {
-          setSelectedPost(prev => prev ? {
-            ...prev,
-            comments_count: (prev.comments_count || 0) + 1
-          } : null);
-        }
-      }
+      // For demo purposes, show that comments are disabled
+      toast({
+        title: "Comments Disabled",
+        description: "Comments are disabled in demo mode. Like functionality is available!",
+        variant: "default",
+      });
 
       setNewComment("");
-      
-      toast({
-        title: "Comment added",
-        description: "Your comment has been posted.",
-      });
 
     } catch (error) {
       console.error('Failed to add comment:', error);
