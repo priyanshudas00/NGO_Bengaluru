@@ -11,9 +11,7 @@ import {
   ArrowRight,
   FileCheck,
   Award,
-  Building,
-  Download,
-  ExternalLink
+  Building
 } from "lucide-react";
 
 const Transparency = () => {
@@ -172,7 +170,7 @@ const Transparency = () => {
           
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {principles.map((principle, index) => (
-              <Card key={index} className="bg-gray-50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <Card key={index} className="bg-amber-50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-amber-200">
                 <CardContent className="p-6 text-center">
                   <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                     <principle.icon className="w-7 h-7 text-primary" />
@@ -208,7 +206,7 @@ const Transparency = () => {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
               {certificates.map((cert) => (
-                <Card key={cert.id} className="bg-gray-50 hover:shadow-lg transition-all duration-300">
+                <Card key={cert.id} className="bg-amber-50 hover:shadow-lg transition-all duration-300 border-amber-200">
                   <CardHeader className="pb-3">
                     <div className="flex justify-between items-start">
                       <CardTitle className="font-display text-lg">{cert.name}</CardTitle>
@@ -233,24 +231,13 @@ const Transparency = () => {
                       </div>
                     </div>
                     <p className="text-sm text-muted-foreground">{cert.description}</p>
-                    <div className="flex gap-2 pt-2">
-                      <Button variant="outline" size="sm" className="flex-1" asChild>
-                        <a href={cert.fileUrl} target="_blank" rel="noopener noreferrer">
-                          <Download className="w-4 h-4 mr-2" />
-                          View PDF
-                        </a>
-                      </Button>
-                      <Button variant="ghost" size="sm">
-                        <ExternalLink className="w-4 h-4" />
-                      </Button>
-                    </div>
                   </CardContent>
                 </Card>
               ))}
             </div>
 
             {/* Additional Registrations */}
-            <Card className="bg-gray-50 border-primary/20">
+            <Card className="bg-amber-50 border-primary/20 border-amber-200">
               <CardHeader>
                 <CardTitle className="font-display text-xl flex items-center gap-2">
                   <Building className="w-5 h-5" />
@@ -290,7 +277,7 @@ const Transparency = () => {
               </p>
             </div>
 
-            <Card className="bg-gray-50">
+            <Card className="bg-amber-50">
               <CardContent className="p-8">
                 <div className="grid md:grid-cols-2 gap-8">
                   <div>
@@ -353,7 +340,7 @@ const Transparency = () => {
               </p>
             </div>
             
-            <Card className="bg-gray-50">
+            <Card className="bg-amber-50">
               <CardContent className="p-8">
                 <div className="space-y-6">
                   {fundAllocation.map((item, index) => (
@@ -391,7 +378,7 @@ const Transparency = () => {
               </h2>
             </div>
             
-            <Card className="bg-gray-50">
+            <Card className="bg-amber-50">
               <CardContent className="p-8">
                 <ul className="space-y-4">
                   {commitments.map((commitment, index) => (
@@ -410,7 +397,7 @@ const Transparency = () => {
       {/* Verification & Contact */}
       <section className="py-16 bg-gradient-to-br from-primary/5 to-accent/5">
         <div className="container px-4">
-          <Card className="max-w-4xl mx-auto bg-gray-50 border-primary/20">
+          <Card className="max-w-4xl mx-auto bg-amber-50 border-primary/20 border-amber-200">
             <CardContent className="p-8 md:p-12">
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div>
