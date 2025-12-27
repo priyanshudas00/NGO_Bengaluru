@@ -35,7 +35,8 @@ export interface Post {
   id: string
   title: string
   content: string
-  image_url: string
+  image_url: string // Keep for backward compatibility
+  image_urls?: string[] // New field for multiple images
   caption: string
   status: 'draft' | 'published'
   likes_count: number

@@ -48,7 +48,17 @@ export function Footer() {
             <div className="flex flex-col gap-3">
               <div className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 mt-1 opacity-80" />
-                <span className="text-sm opacity-90">Sundarban Area,<br />West Bengal, India</span>
+                <div>
+                  <span className="text-sm opacity-90 font-medium">Head Office:</span><br />
+                  <span className="text-xs opacity-80">No.37/2 Swami Vivekananda Road,<br />Kolkata - 700124</span>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <MapPin className="w-4 h-4 mt-1 opacity-80" />
+                <div>
+                  <span className="text-sm opacity-90 font-medium">Bangalore Office:</span><br />
+                  <span className="text-xs opacity-80">No.54, Girija Towers, Ground Floor,<br />Palace Guttahalli Main Road,<br />Malleswaram, Bangalore - 560003</span>
+                </div>
               </div>
               <a href="tel:+919620555694" className="flex items-center gap-3 text-sm opacity-80 hover:opacity-100 transition-opacity">
                 <Phone className="w-4 h-4" />

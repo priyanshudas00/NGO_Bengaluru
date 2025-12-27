@@ -25,7 +25,7 @@ import { supabase, Post, Comment } from "@/lib/supabase";
 const Gallery = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
-  const [selectedPostIndex, setSelectedPostIndex] = useState<number>(0);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [newComment, setNewComment] = useState("");
   const [likedPosts, setLikedPosts] = useState<Set<string>>(new Set());
   const [comments, setComments] = useState<{[postId: string]: Comment[]}>({});
@@ -251,9 +251,10 @@ const Gallery = () => {
     }
   };
 
-  const openModal = (post: Post, index: number) => {
+  const openModal = (post: Post, index: number, imageIndex: number = 0) => {
     setSelectedPost(post);
     setSelectedPostIndex(index);
+    setSelectedImageIndex(imageIndex);
     setIsModalOpen(true);
     // Prevent body scroll
     document.body.style.overflow = 'hidden';
@@ -266,24 +267,38 @@ const Gallery = () => {
     document.body.style.overflow = 'unset';
   };
 
-  const navigatePost = (direction: 'prev' | 'next') => {
-    if (!selectedPost || posts.length <= 1) return;
+  const navigateImage = (direction: 'prev' | 'next') => {
+    if (!selectedPost) return;
 
+    const images = selectedPost.image_urls || [selectedPost.image_url];
     const newIndex = direction === 'next'
-      ? (selectedPostIndex + 1) % posts.length
-      : (selectedPostIndex - 1 + posts.length) % posts.length;
+      ? (selectedImageIndex + 1) % images.length
+      : (selectedImageIndex - 1 + images.length) % images.length;
 
-    setSelectedPost(posts[newIndex]);
-    setSelectedPostIndex(newIndex);
+    setSelectedImageIndex(newIndex);
   };
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (!isModalOpen || !selectedPost) return;
 
     if (e.key === 'Escape') closeModal();
-    if (e.key === 'ArrowLeft') navigatePost('prev');
-    if (e.key === 'ArrowRight') navigatePost('next');
-  }, [isModalOpen, selectedPost]);
+    if (e.key === 'ArrowLeft') {
+      const images = selectedPost.image_urls || [selectedPost.image_url];
+      if (images.length > 1) {
+        navigateImage('prev');
+      } else {
+        navigatePost('prev');
+      }
+    }
+    if (e.key === 'ArrowRight') {
+      const images = selectedPost.image_urls || [selectedPost.image_url];
+      if (images.length > 1) {
+        navigateImage('next');
+      } else {
+        navigatePost('next');
+      }
+    }
+  }, [isModalOpen, selectedPost, selectedImageIndex]);
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
@@ -313,15 +328,15 @@ const Gallery = () => {
           <div className="p-6 border-b border-gray-100">
             <div className="text-center">
               <h2 className="text-2xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent mb-2">
-                Featured Stories
+                Our Story Timeline
               </h2>
               <p className="text-gray-600 text-sm max-w-lg mx-auto">
-                Scroll to discover more inspiring moments from our community
+                Follow our journey through inspiring moments and achievements
               </p>
             </div>
           </div>
 
-          {/* Gallery Grid */}
+          {/* Timeline Layout */}
           <div className="p-4 sm:p-6">
             {posts.length === 0 ? (
               <div className="text-center py-12">
@@ -332,131 +347,167 @@ const Gallery = () => {
                 <p className="text-gray-600 text-sm">Check back soon for inspiring stories and moments!</p>
               </div>
             ) : (
-              <>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {posts.map((post, index) => (
-                    <Card
-                      key={post.id}
-                      className="group overflow-hidden border-0 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white"
-                    >
-                      <div className="relative overflow-hidden aspect-square">
-                        <img
-                          src={post.image_url || '/placeholder.svg'}
-                          alt={post.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          loading="lazy"
-                        />
-                        
-                        {/* Overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                          <Button
-                            onClick={() => openModal(post, index)}
-                            className="bg-white/90 hover:bg-white text-gray-900 rounded-full px-4 py-2 shadow-lg"
-                          >
-                            <Eye className="w-4 h-4 mr-2" />
-                            View Details
-                          </Button>
-                        </div>
+              <div className="max-w-4xl mx-auto">
+                <div className="relative">
+                  {/* Timeline line */}
+                  <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary/50 to-primary/20"></div>
 
-                        {/* Stats */}
-                        <div className="absolute top-3 right-3 bg-black/50 backdrop-blur-sm rounded-full px-3 py-1.5 flex items-center gap-2 text-white text-xs">
-                          <div className="flex items-center gap-1">
-                            <Heart className="w-3 h-3" />
-                            <span>{post.likes_count || 0}</span>
-                          </div>
-                          <div className="w-px h-3 bg-white/30"></div>
-                          <div className="flex items-center gap-1">
-                            <MessageCircle className="w-3 h-3" />
-                            <span>{post.comments_count || 0}</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Content */}
-                      <CardContent className="p-4">
-                        <div className="flex items-start justify-between mb-3">
-                          <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                              <img
-                                src="/images/main logo.png"
-                                alt="Asangoham Foundation"
-                                className="w-6 h-6 rounded-full object-cover"
-                              />
-                            </div>
-                            <div>
-                              <h3 className="font-medium text-gray-900 text-sm">Asangoham Foundation</h3>
-                              <div className="flex items-center gap-1 text-xs text-gray-500">
-                                <Calendar className="w-3 h-3" />
-                                <span>{new Date(post.created_at).toLocaleDateString()}</span>
+                  <div className="space-y-8">
+                    {posts.map((post, index) => {
+                      const images = post.image_urls || [post.image_url];
+                      return (
+                        <div key={post.id} className="relative flex items-start gap-6">
+                          {/* Timeline dot */}
+                          <div className="relative z-10 flex-shrink-0">
+                            <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-lg">
+                              <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
+                                <Heart className="w-3 h-3 text-primary" />
                               </div>
                             </div>
                           </div>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => openModal(post, index)}
-                            className="p-1 h-7 w-7"
-                          >
-                            <ExternalLink className="w-4 h-4" />
-                          </Button>
-                        </div>
 
-                        <h4 className="font-semibold text-gray-900 mb-2 line-clamp-2">{post.title}</h4>
-                        
-                        {post.caption && (
-                          <p className="text-gray-600 text-sm line-clamp-3 mb-4">{post.caption}</p>
-                        )}
+                          {/* Post content */}
+                          <div className="flex-1 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+                            {/* Post header */}
+                            <div className="p-6 border-b border-gray-100">
+                              <div className="flex items-center justify-between mb-4">
+                                <div className="flex items-center gap-3">
+                                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                                    <img
+                                      src="/images/main logo.png"
+                                      alt="Asangoham Foundation"
+                                      className="w-8 h-8 rounded-full object-cover"
+                                    />
+                                  </div>
+                                  <div>
+                                    <h3 className="font-semibold text-gray-900">Asangoham Foundation</h3>
+                                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                                      <Calendar className="w-4 h-4" />
+                                      <span>{new Date(post.created_at).toLocaleDateString('en-US', {
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric'
+                                      })}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => openModal(post, index)}
+                                  className="p-2"
+                                >
+                                  <ExternalLink className="w-4 h-4" />
+                                </Button>
+                              </div>
 
-                        {/* Action Buttons */}
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-1">
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => handleLike(post.id)}
-                              disabled={isLiking === post.id}
-                              className={`p-1.5 h-8 w-8 rounded-full transition-colors ${
-                                likedPosts.has(post.id)
-                                  ? "text-red-500 hover:text-red-600 bg-red-50"
-                                  : "text-gray-600 hover:text-red-500 hover:bg-red-50"
-                              }`}
-                            >
-                              {isLiking === post.id ? (
-                                <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                              ) : (
-                                <Heart className={`w-3.5 h-3.5 ${likedPosts.has(post.id) ? "fill-current" : ""}`} />
+                              <h4 className="text-xl font-bold text-gray-900 mb-2">{post.title}</h4>
+
+                              {post.caption && (
+                                <p className="text-gray-700 leading-relaxed">{post.caption}</p>
                               )}
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => openModal(post, index)}
-                              className="p-1.5 h-8 w-8 rounded-full text-gray-600 hover:text-blue-500 hover:bg-blue-50"
-                            >
-                              <MessageCircle className="w-3.5 h-3.5" />
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => handleShare(post)}
-                              className="p-1.5 h-8 w-8 rounded-full text-gray-600 hover:text-green-500 hover:bg-green-50"
-                            >
-                              <Share className="w-3.5 h-3.5" />
-                            </Button>
+                            </div>
+
+                            {/* Images */}
+                            {images.length > 0 && (
+                              <div className="relative">
+                                {images.length === 1 ? (
+                                  <div className="relative aspect-video">
+                                    <img
+                                      src={images[0] || '/placeholder.svg'}
+                                      alt={post.title}
+                                      className="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform duration-300"
+                                      onClick={() => openModal(post, index)}
+                                    />
+                                  </div>
+                                ) : (
+                                  <div className="grid grid-cols-2 gap-1 aspect-video">
+                                    {images.slice(0, 4).map((image, imgIndex) => (
+                                      <div key={imgIndex} className="relative overflow-hidden">
+                                        <img
+                                          src={image || '/placeholder.svg'}
+                                          alt={`${post.title} ${imgIndex + 1}`}
+                                          className="w-full h-full object-cover cursor-pointer hover:scale-110 transition-transform duration-300"
+                                          onClick={() => openModal(post, index, imgIndex)}
+                                        />
+                                        {imgIndex === 3 && images.length > 4 && (
+                                          <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                                            <span className="text-white font-bold text-lg">+{images.length - 4}</span>
+                                          </div>
+                                        )}
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+
+                                {/* Image count indicator */}
+                                {images.length > 1 && (
+                                  <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm rounded-full px-3 py-1">
+                                    <span className="text-white text-sm font-medium">{images.length} photos</span>
+                                  </div>
+                                )}
+                              </div>
+                            )}
+
+                            {/* Post actions */}
+                            <div className="p-6">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-4">
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    onClick={() => handleLike(post.id)}
+                                    disabled={isLiking === post.id}
+                                    className={`flex items-center gap-2 transition-colors ${
+                                      likedPosts.has(post.id)
+                                        ? "text-red-500 hover:text-red-600"
+                                        : "text-gray-600 hover:text-red-500"
+                                    }`}
+                                  >
+                                    {isLiking === post.id ? (
+                                      <Loader2 className="w-4 h-4 animate-spin" />
+                                    ) : (
+                                      <Heart className={`w-5 h-5 ${likedPosts.has(post.id) ? "fill-current" : ""}`} />
+                                    )}
+                                    <span className="font-medium">{post.likes_count || 0}</span>
+                                  </Button>
+
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    onClick={() => openModal(post, index)}
+                                    className="flex items-center gap-2 text-gray-600 hover:text-blue-500"
+                                  >
+                                    <MessageCircle className="w-5 h-5" />
+                                    <span className="font-medium">{post.comments_count || 0}</span>
+                                  </Button>
+
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    onClick={() => handleShare(post)}
+                                    className="flex items-center gap-2 text-gray-600 hover:text-green-500"
+                                  >
+                                    <Share className="w-5 h-5" />
+                                    <span className="font-medium">{post.shares_count || 0}</span>
+                                  </Button>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-
-                {/* Infinite scroll loader */}
-                {hasMore && (
-                  <div ref={observerRef} className="py-8 text-center">
-                    <Loader2 className="w-6 h-6 animate-spin mx-auto text-primary" />
+                      );
+                    })}
                   </div>
-                )}
-              </>
+
+                  {/* Infinite scroll loader */}
+                  {hasMore && (
+                    <div ref={observerRef} className="py-8 text-center">
+                      <Loader2 className="w-6 h-6 animate-spin mx-auto text-primary" />
+                    </div>
+                  )}
+                </div>
+              </div>
             )}
           </div>
         </div>
@@ -475,49 +526,104 @@ const Gallery = () => {
                 <X className="w-5 h-5" />
               </Button>
 
-              {/* Navigation Buttons */}
-              {posts.length > 1 && (
-                <>
-                  <Button
-                    onClick={() => navigatePost('prev')}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 z-50 bg-black/50 hover:bg-black/70 text-white border-0 rounded-full p-2 sm:p-3 hidden lg:block"
-                  >
-                    <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
-                  </Button>
-                  <Button
-                    onClick={() => navigatePost('next')}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 z-50 bg-black/50 hover:bg-black/70 text-white border-0 rounded-full p-2 sm:p-3 hidden lg:block"
-                  >
-                    <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
-                  </Button>
-                </>
-              )}
-
               {/* Image Section */}
               <div className="flex-1 relative min-h-[40vh] lg:min-h-0">
-                <img
-                  src={selectedPost.image_url || '/placeholder.svg'}
-                  alt={selectedPost.title}
-                  className="w-full h-full object-contain"
-                />
-                
-                {/* Mobile Navigation */}
-                {posts.length > 1 && (
-                  <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-4 lg:hidden">
-                    <Button
-                      onClick={() => navigatePost('prev')}
-                      className="bg-black/50 hover:bg-black/70 text-white border-0 rounded-full p-2"
-                    >
-                      <ChevronLeft className="w-5 h-5" />
-                    </Button>
-                    <Button
-                      onClick={() => navigatePost('next')}
-                      className="bg-black/50 hover:bg-black/70 text-white border-0 rounded-full p-2"
-                    >
-                      <ChevronRight className="w-5 h-5" />
-                    </Button>
-                  </div>
-                )}
+                {(() => {
+                  const images = selectedPost.image_urls || [selectedPost.image_url];
+                  const currentImage = images[selectedImageIndex] || '/placeholder.svg';
+                  
+                  return (
+                    <>
+                      <img
+                        src={currentImage}
+                        alt={selectedPost.title}
+                        className="w-full h-full object-contain"
+                      />
+                      
+                      {/* Image navigation for multiple images */}
+                      {images.length > 1 && (
+                        <>
+                          {/* Image indicators */}
+                          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                            {images.map((_, idx) => (
+                              <button
+                                key={idx}
+                                onClick={() => setSelectedImageIndex(idx)}
+                                className={`w-2 h-2 rounded-full transition-colors ${
+                                  idx === selectedImageIndex ? 'bg-white' : 'bg-white/50'
+                                }`}
+                              />
+                            ))}
+                          </div>
+                          
+                          {/* Navigation Buttons */}
+                          <Button
+                            onClick={() => navigateImage('prev')}
+                            className="absolute left-4 top-1/2 -translate-y-1/2 z-50 bg-black/50 hover:bg-black/70 text-white border-0 rounded-full p-2 sm:p-3"
+                          >
+                            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+                          </Button>
+                          <Button
+                            onClick={() => navigateImage('next')}
+                            className="absolute right-4 top-1/2 -translate-y-1/2 z-50 bg-black/50 hover:bg-black/70 text-white border-0 rounded-full p-2 sm:p-3"
+                          >
+                            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                          </Button>
+                        </>
+                      )}
+                      
+                      {/* Post navigation (only when single image) */}
+                      {images.length === 1 && posts.length > 1 && (
+                        <>
+                          <Button
+                            onClick={() => navigatePost('prev')}
+                            className="absolute left-4 top-1/2 -translate-y-1/2 z-50 bg-black/50 hover:bg-black/70 text-white border-0 rounded-full p-2 sm:p-3 hidden lg:block"
+                          >
+                            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+                          </Button>
+                          <Button
+                            onClick={() => navigatePost('next')}
+                            className="absolute right-4 top-1/2 -translate-y-1/2 z-50 bg-black/50 hover:bg-black/70 text-white border-0 rounded-full p-2 sm:p-3 hidden lg:block"
+                          >
+                            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                          </Button>
+                        </>
+                      )}
+                      
+                      {/* Mobile Navigation */}
+                      {posts.length > 1 && (
+                        <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-4 lg:hidden">
+                          <Button
+                            onClick={() => {
+                              const images = selectedPost.image_urls || [selectedPost.image_url];
+                              if (images.length > 1) {
+                                navigateImage('prev');
+                              } else {
+                                navigatePost('prev');
+                              }
+                            }}
+                            className="bg-black/50 hover:bg-black/70 text-white border-0 rounded-full p-2"
+                          >
+                            <ChevronLeft className="w-5 h-5" />
+                          </Button>
+                          <Button
+                            onClick={() => {
+                              const images = selectedPost.image_urls || [selectedPost.image_url];
+                              if (images.length > 1) {
+                                navigateImage('next');
+                              } else {
+                                navigatePost('next');
+                              }
+                            }}
+                            className="bg-black/50 hover:bg-black/70 text-white border-0 rounded-full p-2"
+                          >
+                            <ChevronRight className="w-5 h-5" />
+                          </Button>
+                        </div>
+                      )}
+                    </>
+                  );
+                })()}
               </div>
 
               {/* Content Section */}

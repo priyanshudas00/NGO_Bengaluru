@@ -19,10 +19,10 @@ import {
 
 const bankDetails = {
   accountName: "Asangoham Foundation",
-  accountNumber: "XXXX XXXX XXXX",
-  bankName: "State Bank of India",
-  ifsc: "SBIN0XXXXXX",
-  branch: "Sundarban Branch",
+  accountNumber: "10061435903",
+  bankName: "IDFC First Bank",
+  ifsc: "IDFB0080178",
+  branch: "SAdashiva Nagar Branch",
   upi: "asangoham@sbi"
 };
 
@@ -230,9 +230,20 @@ export default function Contact() {
                       <MapPin className="w-6 h-6 text-warm" />
                     </div>
                     <div>
-                      <h3 className="font-medium text-foreground">Location</h3>
-                      <p className="text-muted-foreground text-sm">Sundarban Area, West Bengal, India</p>
-                      <p className="text-xs text-muted-foreground mt-1">Visits by appointment only</p>
+                      <h3 className="font-medium text-foreground">Head Office</h3>
+                      <p className="text-muted-foreground text-sm">No.37/2 Swami Vivekananda Road, Kolkata - 700124</p>
+                      <p className="text-xs text-muted-foreground mt-1">West Bengal, India</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4 p-4 bg-card rounded-xl border border-border/50">
+                    <div className="w-12 h-12 rounded-full bg-warm/10 flex items-center justify-center flex-shrink-0">
+                      <MapPin className="w-6 h-6 text-warm" />
+                    </div>
+                    <div>
+                      <h3 className="font-medium text-foreground">Bangalore Office</h3>
+                      <p className="text-muted-foreground text-sm">No.54, Girija Towers, Ground Floor, Palace Guttahalli Main Road, Malleswaram, Bangalore - 560003</p>
+                      <p className="text-xs text-muted-foreground mt-1">Karnataka, India</p>
                     </div>
                   </div>
                 </div>

@@ -29,8 +29,8 @@ interface PostFormData {
   content: string;
   caption: string;
   status: 'draft' | 'published';
-  image?: File | null;
-  image_url?: string;
+  images?: File[];
+  image_urls?: string[];
 }
 
 const Admin = () => {
@@ -135,19 +135,22 @@ const Admin = () => {
 
   const handleSavePost = async (postData: PostFormData) => {
     try {
-      let imageUrl = '';
+      let imageUrls: string[] = [];
 
-      // Upload image if provided
-      if (postData.image) {
-        const fileExt = postData.image.name.split('.').pop();
-        const fileName = `${Date.now()}.${fileExt}`;
-        const { data: uploadData, error: uploadError } = await supabase.storage
-          .from('posts')
-          .upload(fileName, postData.image);
+      // Upload images if provided
+      if (postData.images && postData.images.length > 0) {
+        for (const image of postData.images) {
+          const fileExt = image.name.split('.').pop();
+          const fileName = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}.${fileExt}`;
+          const { data: uploadData, error: uploadError } = await supabase.storage
+            .from('posts')
+            .upload(fileName, image);
 
-        if (uploadError) throw uploadError;
+          if (uploadError) throw uploadError;
 
-        imageUrl = supabase.storage.from('posts').getPublicUrl(fileName).data.publicUrl;
+          const publicUrl = supabase.storage.from('posts').getPublicUrl(fileName).data.publicUrl;
+          imageUrls.push(publicUrl);
+        }
       }
 
       // Get current user
@@ -183,7 +186,8 @@ const Admin = () => {
         .insert([{
           title: postData.title,
           content: postData.content,
-          image_url: imageUrl,
+          image_url: imageUrls.length > 0 ? imageUrls[0] : '', // Keep for backward compatibility
+          image_urls: imageUrls.length > 0 ? imageUrls : null, // New field for multiple images
           caption: postData.caption,
           status: postData.status,
           author_id: user.id

@@ -13,8 +13,8 @@ interface PostFormData {
   content: string;
   caption: string;
   status: 'draft' | 'published';
-  image?: File | null;
-  image_url?: string;
+  images?: File[];
+  image_urls?: string[];
 }
 
 interface CreatePostProps {
@@ -28,27 +28,34 @@ const CreatePost = ({ onClose, onSave }: CreatePostProps) => {
     content: "",
     caption: "",
     status: "draft",
-    image: null as File | null,
-    imagePreview: ""
+    images: [] as File[],
+    imagePreviews: [] as string[]
   });
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
+    const files = Array.from(e.target.files || []);
+    if (files.length > 0) {
+      const newPreviews = files.map(file => URL.createObjectURL(file));
       setFormData(prev => ({
         ...prev,
-        image: file,
-        imagePreview: URL.createObjectURL(file)
+        images: [...prev.images, ...files],
+        imagePreviews: [...prev.imagePreviews, ...newPreviews]
       }));
     }
   };
 
-  const removeImage = () => {
-    setFormData(prev => ({
-      ...prev,
-      image: null,
-      imagePreview: ""
-    }));
+  const removeImage = (index: number) => {
+    setFormData(prev => {
+      const newImages = prev.images.filter((_, i) => i !== index);
+      const newPreviews = prev.imagePreviews.filter((_, i) => i !== index);
+      // Clean up object URLs
+      URL.revokeObjectURL(prev.imagePreviews[index]);
+      return {
+        ...prev,
+        images: newImages,
+        imagePreviews: newPreviews
+      };
+    });
   };
 
   const handleSave = (status: "draft" | "published") => {
@@ -77,39 +84,60 @@ const CreatePost = ({ onClose, onSave }: CreatePostProps) => {
         <CardContent className="space-y-6">
           {/* Image Upload */}
           <div className="space-y-2">
-            <Label htmlFor="image">Post Image</Label>
-            {!formData.imagePreview ? (
+            <Label htmlFor="image">Post Images (Multiple allowed)</Label>
+            {formData.imagePreviews.length === 0 ? (
               <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
                 <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                 <div className="space-y-2">
                   <Label htmlFor="image" className="cursor-pointer">
-                    <span className="text-sm font-medium text-gray-900">Click to upload</span>
-                    <span className="text-sm text-gray-500 block">PNG, JPG, GIF up to 10MB</span>
+                    <span className="text-sm font-medium text-gray-900">Click to upload images</span>
+                    <span className="text-sm text-gray-500 block">PNG, JPG, GIF up to 10MB each</span>
                   </Label>
                   <Input
                     id="image"
                     type="file"
                     accept="image/*"
+                    multiple
                     onChange={handleImageUpload}
                     className="hidden"
                   />
                 </div>
               </div>
             ) : (
-              <div className="relative">
-                <img
-                  src={formData.imagePreview}
-                  alt="Preview"
-                  className="w-full h-64 object-cover rounded-lg"
-                />
-                <Button
-                  variant="destructive"
-                  size="sm"
-                  className="absolute top-2 right-2"
-                  onClick={removeImage}
-                >
-                  <X className="w-4 h-4" />
-                </Button>
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  {formData.imagePreviews.map((preview, index) => (
+                    <div key={index} className="relative group">
+                      <img
+                        src={preview}
+                        alt={`Preview ${index + 1}`}
+                        className="w-full h-32 object-cover rounded-lg border"
+                      />
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                        onClick={() => removeImage(index)}
+                      >
+                        <X className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+                  <Label htmlFor="image" className="cursor-pointer">
+                    <span className="text-sm font-medium text-gray-900">Add more images</span>
+                    <span className="text-sm text-gray-500 block">Click to select additional images</span>
+                  </Label>
+                  <Input
+                    id="image"
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={handleImageUpload}
+                    className="hidden"
+                  />
+                </div>
               </div>
             )}
           </div>
@@ -181,7 +209,7 @@ const CreatePost = ({ onClose, onSave }: CreatePostProps) => {
             </Button>
             <Button
               onClick={() => handleSave("published")}
-              disabled={!formData.title.trim() || !formData.content.trim() || !formData.image}
+              disabled={!formData.title.trim() || !formData.content.trim() || formData.images.length === 0}
             >
               <Eye className="w-4 h-4 mr-2" />
               Publish Now
