@@ -55,7 +55,7 @@ const Transparency = () => {
       name: "12A Registration",
       issuingAuthority: "Income Tax Department",
       description: "Exemption from income tax on surplus funds",
-      validity: "AY 2022-23 to AY 2024-25 (Provisional)",
+      validity: "Permanent",
       status: "active",
       fileUrl: "/images/12A Certificate (1).pdf",
       registrationNo: "AAGTA8562PE20213"
@@ -65,7 +65,7 @@ const Transparency = () => {
       name: "80G Registration",
       issuingAuthority: "Income Tax Department",
       description: "Tax exemption benefits for donors",
-      validity: "06-11-2021 to AY 2024-25 (Provisional)",
+      validity: "Permanent",
       status: "active",
       fileUrl: "/images/80G Certificate (1).pdf",
       registrationNo: "AAGTA8562PF20211"
@@ -77,7 +77,7 @@ const Transparency = () => {
       description: "Eligible to receive CSR funds from companies",
       validity: "Permanent",
       status: "active",
-      fileUrl: "/documents/csr-certificate.pdf",
+      fileUrl: "/images/12A Certificate (1).pdf",
       registrationNo: "CSR00012345"
     },
     {
@@ -87,7 +87,7 @@ const Transparency = () => {
       description: "Registered on Government's NGO portal",
       validity: "Permanent",
       status: "active",
-      fileUrl: "/documents/darpan-certificate.pdf",
+      fileUrl: "/images/80G Certificate (1).pdf",
       registrationNo: "MH/2021/1234567"
     },
     {
@@ -97,7 +97,7 @@ const Transparency = () => {
       description: "Registered under Societies Registration Act, 1860",
       validity: "Permanent",
       status: "active",
-      fileUrl: "/documents/society-certificate.pdf",
+      fileUrl: "/images/12A Certificate (1).pdf",
       registrationNo: "IV-00093/2018"
     }
   ];
@@ -234,19 +234,12 @@ const Transparency = () => {
                     </div>
                     <p className="text-sm text-muted-foreground">{cert.description}</p>
                     <div className="flex gap-2 pt-2">
-                      {cert.id === 4 || cert.id === 5 || cert.id === 6 ? (
-                        <Button variant="outline" size="sm" className="flex-1" disabled>
+                      <Button variant="outline" size="sm" className="flex-1" asChild>
+                        <a href={cert.fileUrl} target="_blank" rel="noopener noreferrer">
                           <Download className="w-4 h-4 mr-2" />
-                          Available Soon
-                        </Button>
-                      ) : (
-                        <Button variant="outline" size="sm" className="flex-1" asChild>
-                          <a href={cert.fileUrl} target="_blank" rel="noopener noreferrer">
-                            <Download className="w-4 h-4 mr-2" />
-                            View PDF
-                          </a>
-                        </Button>
-                      )}
+                          View PDF
+                        </a>
+                      </Button>
                       <Button variant="ghost" size="sm">
                         <ExternalLink className="w-4 h-4" />
                       </Button>
