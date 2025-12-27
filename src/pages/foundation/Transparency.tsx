@@ -360,7 +360,7 @@ const Transparency = () => {
                 </div>
                 
                 <p className="text-xs text-center text-muted-foreground mt-6 pt-6 border-t border-border">
-                  * Allocation percentages are based on FY 2023-24 audited financial statements
+                  * Allocation percentages are based on FY 2025-26 audited financial statements
                 </p>
               </CardContent>
             </Card>
