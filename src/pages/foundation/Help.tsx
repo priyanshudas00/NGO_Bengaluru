@@ -48,11 +48,11 @@ const Help = () => {
 
   const bankDetails = {
     accountName: "Asangoham Foundation",
-    accountNumber: "XXXX XXXX XXXX 1234",
-    ifsc: "XXXX0001234",
-    bank: "State Bank of India",
-    branch: "Sundarban Branch",
-    upi: "asangoham@upi"
+    accountNumber: "10061435903",
+    ifsc: "IDFB0080178",
+    bank: "IDFC First Bank",
+    branch: "SAdashiva Nagar Branch",
+    upi: "asangoham@sbi"
   };
 
   const donationAreas = [
@@ -242,7 +242,7 @@ const Help = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild size="lg" className="rounded-full">
-                  <a href="https://wa.me/918050500434" target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/919620555694" target="_blank" rel="noopener noreferrer">
                     <Phone className="mr-2 h-5 w-5" />
                     WhatsApp Us
                   </a>

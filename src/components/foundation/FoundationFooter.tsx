@@ -34,9 +34,16 @@ const FoundationFooter = () => {
           
           <div>
             <h4 className="font-semibold mb-4">Contact</h4>
-            <div className="space-y-2 text-sm text-background/70">
-              <p className="flex items-center gap-2"><MapPin className="w-4 h-4" /> Sundarban, West Bengal</p>
-              <p className="flex items-center gap-2"><Phone className="w-4 h-4" /> +91 96205 55694</p>
+            <div className="space-y-3 text-sm text-background/70">
+              <div>
+                <p className="font-medium text-background mb-1">Head Office:</p>
+                <p className="text-xs">No.37/2 Swami Vivekananda Road,<br />Kolkata - 700124</p>
+              </div>
+              <div>
+                <p className="font-medium text-background mb-1">Bangalore Office:</p>
+                <p className="text-xs">No.54, Girija Towers, Ground Floor,<br />Palace Guttahalli Main Road,<br />Malleswaram, Bangalore - 560003</p>
+              </div>
+              <p className="flex items-center gap-2"><Phone className="w-4 h-4" /> 91 96205 55694</p>
               <p className="flex items-center gap-2"><Mail className="w-4 h-4" /> contact@asangoham.org</p>
             </div>
           </div>

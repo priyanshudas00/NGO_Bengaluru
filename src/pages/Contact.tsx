@@ -182,7 +182,7 @@ export default function Contact() {
                 
                 <div className="space-y-4">
                   <a 
-                    href="https://wa.me/918050500434" 
+                    href="https://wa.me/919620555694" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="flex items-start gap-4 p-4 bg-card rounded-xl border border-border/50 hover:shadow-md transition-shadow"
@@ -192,7 +192,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <h3 className="font-medium text-foreground">WhatsApp (Fastest)</h3>
-                      <p className="text-muted-foreground text-sm">+91 96205 55694</p>
+                      <p className="text-muted-foreground text-sm">91 96205 55694</p>
                       <p className="text-xs text-primary mt-1">Click to chat →</p>
                     </div>
                   </a>
@@ -206,7 +206,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <h3 className="font-medium text-foreground">Phone</h3>
-                      <p className="text-muted-foreground text-sm">+91 96205 55694</p>
+                      <p className="text-muted-foreground text-sm">91 96205 55694</p>
                       <p className="text-xs text-muted-foreground mt-1">Available 9 AM - 6 PM IST</p>
                     </div>
                   </a>
@@ -336,7 +336,7 @@ export default function Contact() {
             interaction. Thank you for caring about the children of Sundarbans.
           </p>
           <Button asChild size="lg" variant="secondary">
-            <a href="https://wa.me/918050500434" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/919620555694" target="_blank" rel="noopener noreferrer">
               <MessageCircle className="w-5 h-5 mr-2" />
               Start a Conversation
             </a>

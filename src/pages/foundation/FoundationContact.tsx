@@ -32,13 +32,18 @@ const FoundationContact = () => {
   const contactInfo = [
     {
       icon: MapPin,
-      title: "Location",
-      details: ["Sundarban Area", "West Bengal, India"]
+      title: "Head Office",
+      details: ["No.37/2 Swami Vivekananda Road", "Kolkata - 700124", "West Bengal, India"]
+    },
+    {
+      icon: MapPin,
+      title: "Bangalore Office",
+      details: ["No.54, Girija Towers, Ground Floor", "Palace Guttahalli Main Road", "Malleswaram, Bangalore - 560003", "Karnataka, India"]
     },
     {
       icon: Phone,
       title: "Phone",
-      details: ["+91 96205 55694"]
+      details: ["91 96205 55694"]
     },
     {
       icon: Mail,
@@ -108,7 +113,7 @@ const FoundationContact = () => {
                     Get instant replies on WhatsApp
                   </p>
                   <Button asChild className="w-full bg-green-600 hover:bg-green-700 rounded-full">
-                    <a href="https://wa.me/918050500434" target="_blank" rel="noopener noreferrer">
+                    <a href="https://wa.me/919620555694" target="_blank" rel="noopener noreferrer">
                       <Phone className="mr-2 h-4 w-4" />
                       WhatsApp Us
                     </a>

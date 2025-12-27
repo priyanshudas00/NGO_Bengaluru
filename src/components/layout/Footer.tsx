@@ -62,7 +62,7 @@ export function Footer() {
               </div>
               <a href="tel:+919620555694" className="flex items-center gap-3 text-sm opacity-80 hover:opacity-100 transition-opacity">
                 <Phone className="w-4 h-4" />
-                +91 96205 55694
+                91 96205 55694
               </a>
               <a href="mailto:contact@sundarbanchild.org" className="flex items-center gap-3 text-sm opacity-80 hover:opacity-100 transition-opacity">
                 <Mail className="w-4 h-4" />
